@@ -1,0 +1,87 @@
+---
+export interface Props {
+  items: Array<{
+    title: string;
+    description: string;
+  }>;
+}
+
+const { items } = Astro.props;
+---
+
+<div class="space-y-4 my-6">
+  {items.map((item, index) => (
+    <div class="flex">
+      <!-- Step number -->
+      <div class="flex-shrink-0 relative">
+        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+          {index + 1}
+        </div>
+        {index < items.length - 1 && (
+          <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-0.5 h-6 bg-gray-300 dark:bg-gray-600"></div>
+        )}
+      </div>
+      
+      <!-- Step content -->
+      <div class="ml-4 flex-1">
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-1">
+          {item.title}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          {item.description}
+        </p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<!-- Alternative slot-based version -->
+<div class="steps-container space-y-4 my-6">
+  <slot />
+</div>
+
+<style>
+  /* Style for slot-based steps */
+  .steps-container :global(.step) {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  .steps-container :global(.step-number) {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin-right: 1rem;
+  }
+  
+  .steps-container :global(.step-content) {
+    flex: 1;
+  }
+  
+  .steps-container :global(.step-title) {
+    font-weight: 600;
+    color: rgb(17 24 39);
+    margin-bottom: 0.25rem;
+  }
+  
+  .dark .steps-container :global(.step-title) {
+    color: rgb(255 255 255);
+  }
+  
+  .steps-container :global(.step-description) {
+    color: rgb(75 85 99);
+    font-size: 0.875rem;
+  }
+  
+  .dark .steps-container :global(.step-description) {
+    color: rgb(209 213 219);
+  }
+</style>

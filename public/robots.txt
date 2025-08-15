@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://antonprafanto.github.io/ngevibecoding/sitemap-index.xml

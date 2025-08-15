@@ -1,0 +1,145 @@
+---
+---
+
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="/" class="flex items-center space-x-2">
+          <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-sm">VC</span>
+          </div>
+          <span class="font-heading font-bold text-xl text-gray-900 dark:text-white">
+            Vibe Coding
+          </span>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-4">
+          <a 
+            href="/"
+            class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            Home
+          </a>
+          <a 
+            href="/modules"
+            class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            Modul
+          </a>
+          <a 
+            href="#about"
+            class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            Tentang
+          </a>
+        </div>
+      </div>
+
+      <!-- Theme Toggle & Mobile Menu -->
+      <div class="flex items-center space-x-4">
+        <!-- Theme Toggle -->
+        <button
+          id="theme-toggle"
+          type="button"
+          class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
+          aria-label="Toggle theme"
+        >
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2L13.09 8.26L20 9L14 14.74L15.18 21.02L10 17.77L4.82 21.02L6 14.74L0 9L6.91 8.26L10 2Z"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile menu button -->
+        <button 
+          id="mobile-menu-button"
+          type="button" 
+          class="md:hidden p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a 
+        href="/"
+        class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md text-base font-medium transition-colors"
+      >
+        Home
+      </a>
+      <a 
+        href="/modules"
+        class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md text-base font-medium transition-colors"
+      >
+        Modul
+      </a>
+      <a 
+        href="#about"
+        class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md text-base font-medium transition-colors"
+      >
+        Tentang
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Theme toggle functionality
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+  const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+  // Show correct icon based on current theme
+  if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    themeToggleLightIcon?.classList.remove('hidden');
+  } else {
+    themeToggleDarkIcon?.classList.remove('hidden');
+  }
+
+  themeToggleBtn?.addEventListener('click', function() {
+    // Toggle icons
+    themeToggleDarkIcon?.classList.toggle('hidden');
+    themeToggleLightIcon?.classList.toggle('hidden');
+
+    // Toggle theme
+    if (localStorage.getItem('theme')) {
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    } else {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+  });
+
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+</script>

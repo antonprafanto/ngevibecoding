@@ -1,0 +1,89 @@
+---
+export interface Props {
+  title: string;
+  summary: string;
+  duration: string;
+  level: string;
+  order: number;
+  slug: string;
+}
+
+const { title, summary, duration, level, order, slug } = Astro.props;
+
+// Generate gradient based on module order
+const gradients = [
+  'from-blue-500 to-cyan-500',
+  'from-purple-500 to-pink-500', 
+  'from-green-500 to-emerald-500',
+  'from-orange-500 to-red-500',
+  'from-indigo-500 to-purple-500',
+  'from-pink-500 to-rose-500'
+];
+
+const gradient = gradients[(order - 1) % gradients.length];
+---
+
+<div class="group relative bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600">
+  <!-- Gradient header -->
+  <div class={`h-2 bg-gradient-to-r ${gradient}`}></div>
+  
+  <!-- Module number badge -->
+  <div class="absolute top-4 right-4 z-10">
+    <div class={`w-12 h-12 bg-gradient-to-r ${gradient} rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg`}>
+      {order}
+    </div>
+  </div>
+
+  <div class="p-6">
+    <!-- Level badge -->
+    <div class="mb-4">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+        {level}
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h3 class="font-heading text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+      {title}
+    </h3>
+
+    <!-- Summary -->
+    <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+      {summary}
+    </p>
+
+    <!-- Duration -->
+    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      {duration}
+    </div>
+
+    <!-- CTA Button -->
+    <a 
+      href={`/modules/${slug}`}
+      class="inline-flex items-center w-full justify-center px-4 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium rounded-lg transition-colors group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+    >
+      Mulai Modul
+      <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Hover effect overlay -->
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 transition-all duration-300 pointer-events-none"></div>
+</div>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+
+export async function getStaticPaths() {
+  const modules = await getCollection('modules');
+  return modules.map((module) => ({
+    params: { slug: module.slug },
+    props: { module },
+  }));
+}
+
+type Props = {
+  module: CollectionEntry<'modules'>;
+};
+
+const { module } = Astro.props;
+const { Content, headings } = await module.render();
+
+// Get all modules for navigation
+const allModules = await getCollection('modules');
+const sortedModules = allModules.sort((a, b) => a.data.order - b.data.order);
+
+// Find previous and next modules
+const currentIndex = sortedModules.findIndex(m => m.slug === module.slug);
+const prevModule = currentIndex > 0 ? sortedModules[currentIndex - 1] : null;
+const nextModule = currentIndex < sortedModules.length - 1 ? sortedModules[currentIndex + 1] : null;
+
+const title = `${module.data.title} | Vibe Coding`;
+const description = module.data.summary;
+---
+
+<ModuleLayout 
+  title={title} 
+  description={description}
+  frontmatter={module.data}
+  headings={headings}
+  prevModule={prevModule ? {
+    title: prevModule.data.title,
+    slug: prevModule.slug
+  } : undefined}
+  nextModule={nextModule ? {
+    title: nextModule.data.title, 
+    slug: nextModule.slug
+  } : undefined}
+>
+  <Content />
+</ModuleLayout>

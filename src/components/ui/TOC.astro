@@ -1,0 +1,84 @@
+---
+export interface Props {
+  headings: Array<{
+    depth: number;
+    slug: string;
+    text: string;
+  }>;
+}
+
+const { headings } = Astro.props;
+---
+
+<div class="sticky top-24 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm">
+  <h3 class="font-heading font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+    </svg>
+    Daftar Isi
+  </h3>
+  
+  <nav class="space-y-2">
+    {headings.map((heading) => (
+      <a
+        href={`#${heading.slug}`}
+        class={`
+          block text-sm transition-colors hover:text-blue-600 dark:hover:text-blue-400 py-1
+          ${heading.depth === 2 ? 'text-gray-900 dark:text-white font-medium' : ''}
+          ${heading.depth === 3 ? 'text-gray-700 dark:text-gray-300 pl-4' : ''}
+          ${heading.depth === 4 ? 'text-gray-600 dark:text-gray-400 pl-8' : ''}
+        `}
+        data-toc-link
+        data-target={heading.slug}
+      >
+        {heading.text}
+      </a>
+    ))}
+  </nav>
+</div>
+
+<script>
+  // Smooth scroll for TOC links
+  document.querySelectorAll('[data-toc-link]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById(link.getAttribute('data-target'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Highlight current section
+  const observerOptions = {
+    rootMargin: '-100px 0px -60% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const tocLink = document.querySelector(`[data-target="${entry.target.id}"]`);
+      if (tocLink) {
+        if (entry.isIntersecting) {
+          // Remove active from all links
+          document.querySelectorAll('[data-toc-link]').forEach(link => {
+            link.classList.remove('text-blue-600', 'dark:text-blue-400', 'font-semibold');
+            link.classList.add('text-gray-600', 'dark:text-gray-400');
+          });
+          
+          // Add active to current link
+          tocLink.classList.remove('text-gray-600', 'dark:text-gray-400');
+          tocLink.classList.add('text-blue-600', 'dark:text-blue-400', 'font-semibold');
+        }
+      }
+    });
+  }, observerOptions);
+
+  // Observe all headings
+  document.querySelectorAll('h2[id], h3[id], h4[id]').forEach(heading => {
+    observer.observe(heading);
+  });
+</script>

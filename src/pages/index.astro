@@ -1,16 +1,249 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import ModuleCard from '../components/ModuleCard.astro';
+import { getCollection } from 'astro:content';
 
+// Get all modules
+const modules = await getCollection('modules');
+const sortedModules = modules.sort((a, b) => a.data.order - b.data.order);
+
+const title = "Vibe Coding - Belajar Coding dengan AI";
+const description = "Platform pembelajaran coding untuk pemula dengan bantuan AI. Dari nol sampai bisa publish aplikasi ke GitHub Pages tanpa hafal syntax.";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={title} description={description}>
+  <Navbar />
+  
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Overview Section -->
+  <section id="overview" class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Kenapa Vibe Coding Berbeda?
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Kursus coding untuk awam yang fokus pada <strong>problem solving</strong> dengan bantuan AI, 
+          bukan hafalan syntax yang membosankan.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <!-- Feature 1 -->
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            AI-Powered Learning
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Belajar coding dengan bantuan AI sebagai co-creator. Tidak perlu hafal syntax, fokus pada problem solving.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+            </svg>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            Hands-on Projects
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            90% praktik langsung. Setiap modul menghasilkan aplikasi nyata yang bisa kamu gunakan dan deploy.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="font-heading text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            Beginner Friendly
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Dirancang untuk awam total. Tidak butuh background IT atau pengalaman coding sebelumnya.
+          </p>
+        </div>
+      </div>
+
+      <!-- Learning Path -->
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 rounded-2xl p-8">
+        <div class="text-center mb-8">
+          <h3 class="font-heading text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            Learning Path Anda
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Dari awam total sampai bisa monetize aplikasi digital
+          </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
+          <div class="flex items-center bg-white dark:bg-gray-700 rounded-lg p-4 shadow-sm flex-1 max-w-xs">
+            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">1</div>
+            <div>
+              <div class="font-medium text-gray-900 dark:text-white">Mindset</div>
+              <div class="text-sm text-gray-600 dark:text-gray-300">Consumer → Builder</div>
+            </div>
+          </div>
+
+          <svg class="w-6 h-6 text-gray-400 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+
+          <div class="flex items-center bg-white dark:bg-gray-700 rounded-lg p-4 shadow-sm flex-1 max-w-xs">
+            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">2</div>
+            <div>
+              <div class="font-medium text-gray-900 dark:text-white">AI Skills</div>
+              <div class="text-sm text-gray-600 dark:text-gray-300">Prompting & Collaboration</div>
+            </div>
+          </div>
+
+          <svg class="w-6 h-6 text-gray-400 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+
+          <div class="flex items-center bg-white dark:bg-gray-700 rounded-lg p-4 shadow-sm flex-1 max-w-xs">
+            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">3</div>
+            <div>
+              <div class="font-medium text-gray-900 dark:text-white">Building</div>
+              <div class="text-sm text-gray-600 dark:text-gray-300">Real Applications</div>
+            </div>
+          </div>
+
+          <svg class="w-6 h-6 text-gray-400 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+
+          <div class="flex items-center bg-white dark:bg-gray-700 rounded-lg p-4 shadow-sm flex-1 max-w-xs">
+            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">4</div>
+            <div>
+              <div class="font-medium text-gray-900 dark:text-white">Monetize</div>
+              <div class="text-sm text-gray-600 dark:text-gray-300">Revenue Stream</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modules Section -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          6 Modul Pembelajaran
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Setiap modul dirancang untuk memberikan hasil yang langsung bisa kamu gunakan.
+          Progressive learning dari foundation sampai monetization.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedModules.map((module) => (
+          <ModuleCard
+            title={module.data.title}
+            summary={module.data.summary}
+            duration={module.data.duration}
+            level={module.data.level}
+            order={module.data.order}
+            slug={module.slug}
+          />
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-16 text-center">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+          <h3 class="font-heading text-2xl md:text-3xl font-bold mb-4">
+            Siap Memulai Perjalanan Coding Anda?
+          </h3>
+          <p class="text-xl mb-8 text-blue-100">
+            Bergabung dengan ribuan builder yang sudah memulai journey mereka
+          </p>
+          <a 
+            href="/modules/module-1-foundations"
+            class="inline-flex items-center px-8 py-4 bg-white hover:bg-gray-100 text-blue-600 font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            Mulai dengan Modul 1
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials/Benefits Section -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Apa Yang Akan Anda Capai?
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300">
+          Hasil nyata yang bisa Anda raih setelah menyelesaikan kursus
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Aplikasi Live</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">3+ aplikasi web yang bisa diakses publik di GitHub Pages</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">AI Collaboration</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Kemampuan berkolaborasi dengan AI untuk solve complex problems</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Revenue Stream</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Setup monetization untuk menghasilkan passive income</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Builder Mindset</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Confidence untuk tackle masalah apapun dengan teknologi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
