@@ -26,7 +26,7 @@
             Home
           </a>
           <a 
-            href={`${import.meta.env.BASE_URL}modules`}
+            href={`${import.meta.env.BASE_URL}/modules`}
             class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
           >
             Modul
@@ -76,13 +76,13 @@
   <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
     <div class="px-2 pt-2 pb-3 space-y-1">
       <a 
-        href="/"
+        href={import.meta.env.BASE_URL}
         class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md text-base font-medium transition-colors"
       >
         Home
       </a>
       <a 
-        href="/modules"
+        href={`${import.meta.env.BASE_URL}/modules`}
         class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md text-base font-medium transition-colors"
       >
         Modul
